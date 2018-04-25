@@ -11,7 +11,8 @@ public class Main {
             System.out.print("Input file name: ");
             String fName = br.readLine();
             Grammar grammar = new Grammar(fName);
-
+            grammar.deleteInfertile();
+            grammar.saveGrammar("newGrammar.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }

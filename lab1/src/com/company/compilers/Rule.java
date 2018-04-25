@@ -30,7 +30,8 @@ public class Rule {
     @Override
     public String  toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(nonTerm).append(" ").append(terms.toString());
+        stringBuilder.append(nonTerm).append("->");//.append(terms.toString());
+        terms.forEach(stringBuilder::append);
         return stringBuilder.toString();
     }
 }
