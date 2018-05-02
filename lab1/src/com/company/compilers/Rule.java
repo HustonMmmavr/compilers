@@ -3,8 +3,8 @@ package com.company.compilers;
 import java.util.List;
 
 public class Rule {
-    Character nonTerm;
-    List<Character> terms;
+    private Character nonTerm;
+    private List<Character> terms;
 
     Rule(Character nonTerm, List<Character> terms) {
         this.nonTerm = nonTerm;

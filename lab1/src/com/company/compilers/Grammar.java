@@ -76,18 +76,120 @@ public class Grammar {
         writer.close();
     }
 
-    public Boolean isNonTerminal(Character term) {
+    private Boolean isNonTerminal(Character term) {
         return nonTerminals.contains(term);
     }
 
-    public List<Rule> getAssociatedRules(Character nonTerm) {
+    private List<Rule> getAssociatedRules(Character nonTerm) {
         return rules.stream().
                 filter(rule -> rule.getNonTerm().equals(nonTerm)).
                 collect(Collectors.toList());
     }
 
+    private boolean isTerminalRule(Rule rule) {
+        for (Character term: rule.getTerms()) {
+            if (isNonTerminal(term)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-    public void deleteInfertile() throws IOException {
+    private Boolean checkIsGenerating(Character nonTerm) {
+        List<Rule> asscoiated = getAssociatedRules(nonTerm);
+        for (Rule rule : asscoiated) {
+            if (isTerminalRule(rule)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<Rule> getAssociatedRulesRight(Character nonTerm) {
+        return rules.stream().filter(rule -> rule.getTerms().contains(nonTerm))
+                .collect(Collectors.toList());
+    }
+
+    public void deleteUselesTerms() throws Exception {
+        deleteUngenerating();
+        deleteUnreacheble();
+    }
+
+    public Integer getCountNonTerminals(Rule rule) {
+        Integer count = 0;
+        for (Character term : rule.getTerms()) {
+            if (isNonTerminal(term)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private List<C>
+
+    private void deleteUngenerating() {
+//        List<Pair<Character, Boolean>> generatingNonTerms = new ArrayList<>();
+        Hashtable<Character, Boolean> generatingNonTerms = new Hashtable<>();
+        for (Character nonTerm: nonTerminals) {
+            generatingNonTerms.put(nonTerm, false);
+//            generatingNonTerms.add(new Pair<>(nonTerm, false));
+        }
+
+        List<Rule> ungeneratingRules = new ArrayList<>(rules);
+
+
+        List<Pair<Character, List<Character>>> associatedNonTerms = new ArrayList<>();
+        List<Pair<Rule, Integer>> countNonTerminals = new ArrayList<>();
+        for (Rule rule: ungeneratingRules) {
+            associatedNonTerms.add(new Pair<>(rule.getNonTerm(), ))
+            countNonTerminals.add(new Pair<>(rule, getCountNonTerminals(rule)));
+        }
+
+        List<Pair<Character, List<Rule>>> asscoiatedRules = new ArrayList<>();
+        for (Character nonTerm : nonTerminals) {
+            asscoiatedRules.add(new Pair<>(nonTerm, getAssociatedRulesRight(nonTerm)));
+        }
+
+        List<Character> queue = new ArrayList<>();
+
+        // Rules - copy and remove, after copied undeleted delete from main
+
+        for (int i = 0; i < countNonTerminals.size(); i++) {
+            if (countNonTerminals.get(i).getValue() == 0) {
+                Rule generatingRule = ungeneratingRules.get(i);
+                generatingNonTerms.put(generatingRule.getNonTerm(), true);
+                queue.add(generatingRule.getNonTerm());
+                ungeneratingRules.remove(generatingRule);
+            }
+        }
+
+        while (queue.size() != 0) {
+            for (Rule rule : ungeneratingRules) {
+                if (countNonTerminals.)
+                rule.
+            }
+        }
+
+
+
+
+
+//        Hashtable<Character, List<Character>> activeNonTerm = new Hashtable<>();
+//        List<Rule> associatedRules = rules.stream().filter(getAssociatedRules(startSymbol).stream())
+//        activeNonTerm.put()
+//
+//        for (int i = 0; i < activeNonTerms.size(); i++) {
+//            List<Rule> activeRules = getAssociatedRules(activeNonTerms.get(i));
+//
+//        }
+
+    }
+
+
+    private void deleteUnreacheble() throws Exception {
+        if (rules.size() == 0) {
+            throw new Exception("There is no rules");
+        }
         List<Character> activeNonTerms = new ArrayList<>();
         List<Character> activeTerms = new ArrayList<>();
         activeNonTerms.add(startSymbol);
@@ -114,7 +216,5 @@ public class Grammar {
         this.nonTerminals = activeNonTerms;
         this.terminals = activeTerms;
         this.rules = newRules;
-//        Grammar newGrammar = new Grammar(activeNonTerms, activeTerms, newRules, startSymbol, "newGrammar.txt");
-//        newGrammar.saveGrammar();
     }
 }
