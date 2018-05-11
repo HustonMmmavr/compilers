@@ -1,4 +1,4 @@
-package com.company.compilers;
+package compilers;
 
 public class Pair<K, V> {
     private K data1;

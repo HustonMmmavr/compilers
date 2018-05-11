@@ -1,4 +1,4 @@
-package com.company.compilers;
+package compilers;
 
 import java.io.*;
 import java.util.*;
@@ -125,7 +125,7 @@ public class Grammar {
         return count;
     }
 
-    private List<C>
+//    private List<C>
 
     private void deleteUngenerating() {
 //        List<Pair<Character, Boolean>> generatingNonTerms = new ArrayList<>();
@@ -141,7 +141,7 @@ public class Grammar {
         List<Pair<Character, List<Character>>> associatedNonTerms = new ArrayList<>();
         List<Pair<Rule, Integer>> countNonTerminals = new ArrayList<>();
         for (Rule rule: ungeneratingRules) {
-            associatedNonTerms.add(new Pair<>(rule.getNonTerm(), ))
+            //associatedNonTerms.add(new Pair<>(rule.getNonTerm(), ))
             countNonTerminals.add(new Pair<>(rule, getCountNonTerminals(rule)));
         }
 
@@ -165,8 +165,6 @@ public class Grammar {
 
         while (queue.size() != 0) {
             for (Rule rule : ungeneratingRules) {
-                if (countNonTerminals.)
-                rule.
             }
         }
 

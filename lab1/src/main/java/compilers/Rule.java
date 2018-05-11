@@ -1,4 +1,4 @@
-package com.company.compilers;
+package compilers;
 
 import java.util.List;
 
