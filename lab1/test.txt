@@ -8,10 +8,12 @@ L
 a
 b
 e
-5
+7
 S->a
 S->A
+S->D
 A->AB
 B->b
 D->eL
+L->b
 S
